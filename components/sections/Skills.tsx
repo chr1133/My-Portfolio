@@ -1,7 +1,14 @@
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { SiNextdotjs, SiTypescript, SiPostgresql } from "@icons-pack/react-simple-icons";
 import type { Skill } from "@prisma/client";
+
+const iconMap: Record<string, React.ReactNode> = {
+  "Next.js": <SiNextdotjs size={14} />,
+  "TypeScript": <SiTypescript size={14} />,
+  "PostgreSQL": <SiPostgresql size={14} />,
+};
 
 export async function Skills() {
   const skills = await prisma.skill.findMany({ orderBy: { category: "asc" } });
@@ -23,7 +30,10 @@ export async function Skills() {
             <h3 className="text-sm text-muted-foreground mb-2">{category}</h3>
             <div className="flex flex-wrap gap-2">
               {items.map((skill: Skill) => (
-                <Badge key={skill.id} variant="secondary">{skill.name}</Badge>
+                <Badge key={skill.id} variant="secondary" className="flex items-center gap-1.5">
+                  {iconMap[skill.name]}
+                  {skill.name}
+                </Badge>
               ))}
             </div>
           </FadeIn>
