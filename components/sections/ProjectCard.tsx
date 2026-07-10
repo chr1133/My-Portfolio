@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { SiGithub } from "@icons-pack/react-simple-icons";
@@ -28,10 +29,21 @@ export function ProjectCard({ project }: { project: Project }) {
           </div>
         </div>
 
-        {/* "Screen" area showing project name as a stand-in preview */}
-        <div className="aspect-video bg-gradient-to-br from-sky-100 to-violet-100 dark:from-sky-950/30 dark:to-violet-950/20 flex items-center justify-center">
-          <span className="text-lg font-semibold text-muted-foreground">{project.title}</span>
-        </div>
+        {/* Screen area — real screenshot if available, gradient placeholder otherwise */}
+        {project.imageUrl ? (
+          <div className="relative aspect-video">
+            <Image
+              src={project.imageUrl}
+              alt={project.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+        ) : (
+          <div className="aspect-video bg-gradient-to-br from-sky-100 to-violet-100 dark:from-sky-950/30 dark:to-violet-950/20 flex items-center justify-center">
+            <span className="text-lg font-semibold text-muted-foreground">{project.title}</span>
+          </div>
+        )}
 
         <CardHeader>
           <CardTitle className="flex justify-between items-start gap-3">
