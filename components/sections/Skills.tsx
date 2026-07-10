@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Badge } from "@/components/ui/badge";
+import { FadeIn } from "@/components/motion/FadeIn";
 import type { Skill } from "@prisma/client";
 
 export async function Skills() {
@@ -13,17 +14,19 @@ export async function Skills() {
 
   return (
     <section id="skills" className="max-w-3xl mx-auto px-6 py-24">
-      <h2 className="text-2xl font-semibold mb-8">Skills</h2>
+      <FadeIn>
+        <h2 className="text-2xl font-semibold mb-8">Skills</h2>
+      </FadeIn>
       <div className="space-y-6">
-        {Object.entries(grouped).map(([category, items]) => (
-          <div key={category}>
+        {Object.entries(grouped).map(([category, items], i) => (
+          <FadeIn key={category} delay={i * 0.1}>
             <h3 className="text-sm text-muted-foreground mb-2">{category}</h3>
             <div className="flex flex-wrap gap-2">
               {items.map((skill: Skill) => (
                 <Badge key={skill.id} variant="secondary">{skill.name}</Badge>
               ))}
             </div>
-          </div>
+          </FadeIn>
         ))}
       </div>
     </section>

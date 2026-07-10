@@ -9,13 +9,14 @@ datasource db {
 model Profile {
   id            String   @id @default(cuid())
   name          String
+  headline      String?
   email         String   @unique
   bio           String?
   location      String?
   github        String?
   linkedin      String?
   twitter       String?
-  website       String?
+  website        String?
   resumeUrl     String?
   profileImage  String?
   createdAt     DateTime @default(now())
@@ -52,12 +53,14 @@ model Experience {
 }
 
 model Education {
-  id          String @id @default(cuid())
+  id          String  @id @default(cuid())
   institution String
+  college     String?
   degree      String
   field       String
   startYear   Int
   endYear     Int?
+  description String?
 }
 
 model Certificate {

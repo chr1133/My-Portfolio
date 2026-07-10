@@ -1,15 +1,5 @@
-import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const posts = await prisma.blogPost.findMany({
-    orderBy: { createdAt: 'desc' },
-  })
-  return NextResponse.json(posts)
-}
-
-export async function POST(req: Request) {
-  const body = await req.json()
-  const post = await prisma.blogPost.create({ data: body })
-  return NextResponse.json(post)
+  return NextResponse.json({ message: 'Blog API is not enabled.' }, { status: 404 });
 }
