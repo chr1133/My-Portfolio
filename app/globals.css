@@ -84,39 +84,23 @@
 }
 
 .dark {
-  --background: oklch(0.145 0.008 326);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.212 0.019 322.12);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.212 0.019 322.12);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.398 0.195 277.366);
-  --primary-foreground: oklch(0.962 0.018 272.314);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.263 0.024 320.12);
-  --muted-foreground: oklch(0.711 0.019 323.02);
-  --accent: oklch(0.263 0.024 320.12);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.542 0.034 322.5);
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
-  --sidebar: oklch(0.212 0.019 322.12);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.585 0.233 277.117);
-  --sidebar-primary-foreground: oklch(0.962 0.018 272.314);
-  --sidebar-accent: oklch(0.263 0.024 320.12);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.542 0.034 322.5);
-}
+  --background: 300 10% 12%;        /* #1E1A1D */
+  --secondary-background: 290 90% 6%; /* #1F0318 */
+  --card: 350 10% 29%;               /* #513F45 */
+  --accent: 10 25% 44%;              /* #7F534B */
+  --accent-hover: 25 20% 51%;        /* #8C705F */
+  --muted: 30 5% 51%;                /* #827B71 */
+  --foreground: 75 55% 88%;          /* #E5F2C9 */
+  --muted-foreground: 65 15% 68%;    /* #B4B79D */
 
+  --border: 350 10% 29%;
+  --input: 350 10% 29%;
+  --ring: 10 25% 44%;
+  --primary: 75 55% 88%;
+  --primary-foreground: 300 10% 12%;
+  --secondary: 350 10% 29%;
+  --secondary-foreground: 75 55% 88%;
+}
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -127,4 +111,14 @@
   html {
     @apply font-sans;
   }
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee linear infinite;
+}
+.bg-secondary-luxe {
+  background-color: #1F0318;
 }

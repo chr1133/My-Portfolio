@@ -1,53 +1,65 @@
 import { prisma } from "@/lib/prisma";
 import { buttonVariants } from "@/components/ui/button";
 import { SiGithub } from "@icons-pack/react-simple-icons";
-import { Mail, LinkIcon } from "lucide-react";
+import { Mail, Link2 } from "lucide-react";
 import Link from "next/link";
 import { FadeIn } from "@/components/motion/FadeIn";
+import { TextReveal } from "@/components/motion/TextReveal";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 export async function Hero() {
   const profile = await prisma.profile.findFirst();
 
   return (
-    <section className="relative min-h-[85vh] flex flex-col justify-center items-center text-center px-6 overflow-hidden">
-      {/* Gradient background */}
+    <section className="relative min-h-[90vh] flex flex-col justify-center items-center text-center px-6 overflow-hidden">
       <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-100 via-background to-violet-100 dark:from-sky-950/30 dark:via-background dark:to-violet-950/20" />
-        <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-sky-300/30 dark:bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-300/30 dark:bg-violet-500/10 rounded-full blur-3xl" />
-      </div>
+     <div className="absolute inset-0 bg-gradient-to-br from-[#1F0318] via-background to-[#1E1A1D]" />
+     <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-[#7F534B]/20 rounded-full blur-3xl" />
+     <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#513F45]/30 rounded-full blur-3xl" />
+     </div>
 
-      <FadeIn>
-        <p className="text-muted-foreground mb-3">Hi, I'm</p>
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">
-          {profile?.name ?? "Christian Elias"}
-        </h1>
-        <p className="text-lg text-muted-foreground max-w-xl mb-8">
-          {profile?.headline ?? profile?.bio}
+      <p className="text-muted-foreground mb-4 tracking-widest uppercase text-xs">Hi, I'm</p>
+
+      <TextReveal
+        text={profile?.name ?? "Christian Elias"}
+        className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-6 leading-none"
+      />
+
+      <FadeIn delay={0.5}>
+        <p className="text-lg text-muted-foreground max-w-lg mb-10">
+          {profile?.headline ?? "Software Engineer building full-stack products."}
         </p>
       </FadeIn>
-      <FadeIn delay={0.2}>
-        <div className="flex gap-4 mb-8">
-          <Link href="#projects" className={buttonVariants({ variant: "default" })}>
-            View Projects
-          </Link>
-          <Link href="#contact" className={buttonVariants({ variant: "outline" })}>
-            Contact Me
-          </Link>
+
+      <FadeIn delay={0.6}>
+        <div className="flex gap-4 mb-10">
+          <Magnetic>
+            <Link href="#projects" className={buttonVariants({ size: "lg" })}>
+              View Projects
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <Link href="#contact" className={buttonVariants({ variant: "outline", size: "lg" })}>
+              Contact Me
+            </Link>
+          </Magnetic>
         </div>
       </FadeIn>
-      <FadeIn delay={0.4}>
-        <div className="flex gap-5 text-muted-foreground">
+
+      <FadeIn delay={0.7}>
+        <div className="flex gap-6 text-muted-foreground">
           {profile?.github && (
-            <a href={profile.github} target="_blank"><SiGithub size={20} /></a>
+            <Magnetic><a href={profile.github} target="_blank"><SiGithub size={20} /></a></Magnetic>
           )}
           {profile?.linkedin && (
-            <a href={profile.linkedin} target="_blank" rel="noreferrer">
-              <LinkIcon className="w-5 h-5" />
-            </a>
+            <Magnetic>
+              <a href={profile.linkedin} target="_blank" rel="noreferrer">
+                <Link2 className="w-5 h-5" />
+              </a>
+            </Magnetic>
           )}
           {profile?.email && (
-            <a href={`mailto:${profile.email}`}><Mail className="w-5 h-5" /></a>
+            <Magnetic><a href={`mailto:${profile.email}`}><Mail className="w-5 h-5" /></a></Magnetic>
           )}
         </div>
       </FadeIn>
