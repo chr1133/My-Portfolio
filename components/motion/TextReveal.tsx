@@ -8,6 +8,7 @@ export function TextReveal({ text, className }: { text: string; className?: stri
   return (
     <motion.h1
       className={className}
+      style={{ transform: "translateZ(0)" }}
       initial="hidden"
       animate="visible"
       variants={{ visible: { transition: { staggerChildren: 0.08 } } }}
@@ -15,10 +16,11 @@ export function TextReveal({ text, className }: { text: string; className?: stri
       {words.map((word, i) => (
         <motion.span
           key={i}
-          className="inline-block mr-[0.25em]"
+          className="inline-block mr-[0.25em] will-change-transform"
+          style={{ backfaceVisibility: "hidden" }}
           variants={{
-            hidden: { opacity: 0, y: 40 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } },
+            hidden: { opacity: 0, y: 30 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } },
           }}
         >
           {word}

@@ -6,13 +6,11 @@ import { Experience } from "@/components/sections/Experience";
 import { Education } from "@/components/sections/Education";
 import { Certificates } from "@/components/sections/Certificates";
 import { Contact } from "@/components/sections/Contact";
-import { Marquee } from "@/components/motion/Marquee";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <Marquee items={["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "Cloudinary"]} />
       <About />
       <Skills />
       <Projects />

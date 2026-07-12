@@ -1,30 +1,21 @@
 import { prisma } from "@/lib/prisma";
 import { FadeIn } from "@/components/motion/FadeIn";
-import type { Experience as ExperienceModel } from "@prisma/client";
+import { ExperienceTimeline } from "@/components/sections/ExperienceTimeline";
 
 export async function Experience() {
-  const experience: ExperienceModel[] = await prisma.experience.findMany({ orderBy: { startDate: "desc" } });
+  const experience = await prisma.experience.findMany({ orderBy: { startDate: "desc" } });
 
   if (experience.length === 0) return null;
 
   return (
     <section id="experience" className="max-w-3xl mx-auto px-6 py-24">
       <FadeIn>
-        <h2 className="text-2xl font-semibold mb-8">Experience</h2>
+        <p className="text-accent text-xs uppercase tracking-widest font-bold mb-3">Career Journey</p>
+        <h2 className="text-3xl md:text-4xl font-bold mb-10">
+          Experience that <span className="italic text-accent">speaks volumes.</span>
+        </h2>
       </FadeIn>
-      <div className="space-y-8 border-l pl-6">
-        {experience.map((exp, i) => (
-          <FadeIn key={exp.id} delay={i * 0.1}>
-            <div>
-              <h3 className="font-medium">{exp.role} · {exp.company}</h3>
-              <p className="text-xs text-muted-foreground mb-2">
-                {new Date(exp.startDate).getFullYear()} — {exp.endDate ? new Date(exp.endDate).getFullYear() : "Present"}
-              </p>
-              <p className="text-sm text-muted-foreground">{exp.description}</p>
-            </div>
-          </FadeIn>
-        ))}
-      </div>
+      <ExperienceTimeline experience={experience} />
     </section>
   );
 }

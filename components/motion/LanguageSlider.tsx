@@ -16,15 +16,19 @@ export function LanguageSlider() {
   }, []);
 
   return (
-    <div className="h-7 overflow-hidden flex items-center justify-center md:justify-start">
+    <div
+      className="h-7 overflow-hidden flex items-center"
+      style={{ perspective: "400px" }}
+    >
       <AnimatePresence mode="wait">
         <motion.span
           key={languages[index]}
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -20, opacity: 0 }}
-          transition={{ duration: 0.4, ease: "easeInOut" }}
-          className="text-accent font-medium"
+          initial={{ rotateX: -90, opacity: 0, y: 10 }}
+          animate={{ rotateX: 0, opacity: 1, y: 0 }}
+          exit={{ rotateX: 90, opacity: 0, y: -10 }}
+          transition={{ duration: 0.45, ease: "easeInOut" }}
+          className="text-primary font-semibold inline-block origin-center"
+          style={{ transformStyle: "preserve-3d" }}
         >
           {languages[index]}
         </motion.span>

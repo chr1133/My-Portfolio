@@ -1,26 +1,45 @@
 import { prisma } from "@/lib/prisma";
 import { FadeIn } from "@/components/motion/FadeIn";
-import { AboutIllustration } from "@/components/sections/AboutIllustration";
+import { Code2, Rocket, Users, Lightbulb } from "lucide-react";
+import { Section } from "@/components/ui/primitives/Section";
+import { Container } from "@/components/ui/primitives/Container";
+import { SectionHeading } from "@/components/ui/primitives/SectionHeading";
+import { GlassCard } from "@/components/ui/primitives/GlassCard";
+
+const highlights = [
+  { icon: Code2, title: "Clean Code", desc: "Writing maintainable, well-structured code across the stack." },
+  { icon: Rocket, title: "Performance", desc: "Optimizing for speed and smooth, responsive experiences." },
+  { icon: Users, title: "Collaboration", desc: "Working in teams to turn ideas into shipped features." },
+  { icon: Lightbulb, title: "Curiosity", desc: "Constantly learning new tools, patterns, and architectures." },
+];
 
 export async function About() {
   const profile = await prisma.profile.findFirst();
 
   return (
-    <section id="about" className="max-w-4xl mx-auto px-6 py-24">
-      <div className="grid md:grid-cols-[1fr_220px] gap-10 items-center">
+    <Section id="about">
+      <Container>
         <FadeIn>
-          <h2 className="text-2xl font-semibold mb-6">About</h2>
-          <p className="text-muted-foreground leading-relaxed whitespace-pre-line">
-            {profile?.bio ?? "Add your bio in the database to have it appear here."}
-          </p>
-          {profile?.location && (
-            <p className="text-sm text-muted-foreground mt-4">📍 {profile.location}</p>
-          )}
+          <SectionHeading eyebrow="About Me" title="Building thoughtful products, one feature at a time." />
         </FadeIn>
-        <FadeIn delay={0.2} direction="left">
-          <AboutIllustration />
-        </FadeIn>
-      </div>
-    </section>
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <FadeIn delay={0.1}>
+            <p className="text-foreground/70 leading-relaxed whitespace-pre-line mb-6">{profile?.bio}</p>
+            {profile?.location && <p className="text-sm text-muted-foreground">📍 {profile.location}</p>}
+          </FadeIn>
+          <div className="grid grid-cols-2 gap-4">
+            {highlights.map((item, i) => (
+              <FadeIn key={item.title} delay={0.15 + i * 0.1}>
+                <GlassCard className="p-5">
+                  <item.icon className="w-5 h-5 text-accent mb-3" />
+                  <h3 className="font-semibold mb-1 text-sm text-foreground">{item.title}</h3>
+                  <p className="text-xs text-foreground/60 leading-relaxed">{item.desc}</p>
+                </GlassCard>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </Section>
   );
 }
